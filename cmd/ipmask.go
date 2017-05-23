@@ -18,41 +18,49 @@ import (
 	"fmt"
 
 	"github.com/spf13/cobra"
+	"strconv"
 	"net"
+	"os"
 )
 
-// ipaddressCmd represents the ipaddress command
-var ipaddressCmd = &cobra.Command{
-	Use: "ipaddress",
+// ipmaskCmd represents the ipmask command
+var ipmaskCmd = &cobra.Command{
+	Use: "ipmask",
 	Run: func(cmd *cobra.Command, args []string) {
-		if len(args) != 1 {
-			fatal("Usage: ipaddress ip-addr")
+		if len(args) != 3 {
+			fatal("Usage: ipmask dotted-ip-addr ones bits")
 		}
-		name := args[0]
-		addr := net.ParseIP(name)
+		dotAddr := args[0]
+
+		ones, _ := strconv.Atoi(args[1])
+		bits, _ := strconv.Atoi(args[2])
+		addr := net.ParseIP(dotAddr)
+
 		if addr == nil {
 			fmt.Println("Invalid address")
-		} else {
-			fmt.Println("The address is ", addr.String())
+			os.Exit(1)
 		}
-
+		mask := net.CIDRMask(ones, bits)
+		network := addr.Mask(mask)
+		fmt.Println("Address is ", addr.String())
+		fmt.Println("Mask length is ", bits)
+		fmt.Println("Leading ones count is ", ones)
+		fmt.Println("Mask is (HEX) ", mask.String())
+		fmt.Println("Network is ", network.String())
 	},
 }
 
-//var addr string
-
 func init() {
-	RootCmd.AddCommand(ipaddressCmd)
+	RootCmd.AddCommand(ipmaskCmd)
 
 	// Here you will define your flags and configuration settings.
 
 	// Cobra supports Persistent Flags which will work for this command
 	// and all subcommands, e.g.:
-	// ipaddressCmd.PersistentFlags().String("foo", "", "A help for foo")
+	// ipmaskCmd.PersistentFlags().String("foo", "", "A help for foo")
 
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
-	// ipaddressCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
-	//ipaddressCmd.Flags().StringVarP(&addr,"add","i", "", "ip address")
+	// ipmaskCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 
 }
