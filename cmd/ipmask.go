@@ -18,7 +18,6 @@ import (
 	"fmt"
 
 	"github.com/spf13/cobra"
-	"strconv"
 	"net"
 	"os"
 )
@@ -27,28 +26,41 @@ import (
 var ipmaskCmd = &cobra.Command{
 	Use: "ipmask",
 	Run: func(cmd *cobra.Command, args []string) {
-		if len(args) != 3 {
+
+		if len(args) != 1 {
+			cmd.Help()
 			fatal("Usage: ipmask dotted-ip-addr ones bits")
 		}
 		dotAddr := args[0]
 
-		ones, _ := strconv.Atoi(args[1])
-		bits, _ := strconv.Atoi(args[2])
 		addr := net.ParseIP(dotAddr)
 
 		if addr == nil {
 			fmt.Println("Invalid address")
 			os.Exit(1)
 		}
-		mask := net.CIDRMask(ones, bits)
+		var mask net.IPMask
+		o := ones
+		b := bits
+		if ones > -1 && bits > -1 {
+			mask = net.CIDRMask(ones, bits)
+		} else {
+			mask = addr.DefaultMask()
+			o, b = mask.Size()
+		}
 		network := addr.Mask(mask)
 		fmt.Println("Address is ", addr.String())
-		fmt.Println("Mask length is ", bits)
-		fmt.Println("Leading ones count is ", ones)
+		fmt.Println("Mask length is ", o)
+		fmt.Println("Leading ones count is ", b)
 		fmt.Println("Mask is (HEX) ", mask.String())
 		fmt.Println("Network is ", network.String())
 	},
 }
+
+var (
+	ones int
+	bits int
+)
 
 func init() {
 	RootCmd.AddCommand(ipmaskCmd)
@@ -61,6 +73,8 @@ func init() {
 
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
-	// ipmaskCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+
+	ipmaskCmd.Flags().IntVarP(&ones, "ones", "o", -1, "ones")
+	ipmaskCmd.Flags().IntVarP(&bits, "bits", "b", -1, "ones")
 
 }
