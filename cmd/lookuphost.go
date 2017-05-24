@@ -18,43 +18,40 @@ import (
 	"fmt"
 
 	"github.com/spf13/cobra"
-	"net"
 	"os"
+	"net"
 )
 
-// ipaddressCmd represents the ipaddress command
-var ipaddressCmd = &cobra.Command{
-	Use: "ipaddress [ip-addr]",
+// lookuphostCmd represents the lookuphost command
+var lookuphostCmd = &cobra.Command{
+	Use:   "lookuphost [host]",
 	Run: func(cmd *cobra.Command, args []string) {
 		if len(args) != 1 {
 			cmd.Usage()
 			os.Exit(1)
 		}
 		name := args[0]
-		addr := net.ParseIP(name)
-		if addr == nil {
-			fmt.Println("Invalid address")
-		} else {
-			fmt.Println("The address is ", addr.String())
+		addrs, err := net.LookupHost(name)
+		if err != nil {
+			fatal(err)
 		}
-
+		for _, s := range addrs {
+			fmt.Println(s)
+		}
 	},
 }
 
-//var addr string
-
 func init() {
-	RootCmd.AddCommand(ipaddressCmd)
+	RootCmd.AddCommand(lookuphostCmd)
 
 	// Here you will define your flags and configuration settings.
 
 	// Cobra supports Persistent Flags which will work for this command
 	// and all subcommands, e.g.:
-	// ipaddressCmd.PersistentFlags().String("foo", "", "A help for foo")
+	// lookuphostCmd.PersistentFlags().String("foo", "", "A help for foo")
 
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
-	// ipaddressCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
-	//ipaddressCmd.Flags().StringVarP(&addr,"add","i", "", "ip address")
+	// lookuphostCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 
 }

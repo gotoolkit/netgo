@@ -24,7 +24,7 @@ import (
 
 // ipmaskCmd represents the ipmask command
 var ipmaskCmd = &cobra.Command{
-	Use: "ipmask <ip-addr>",
+	Use: "ipmask [ip-addr]",
 	Run: func(cmd *cobra.Command, args []string) {
 
 		if len(args) != 1 {
