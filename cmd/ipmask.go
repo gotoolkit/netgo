@@ -24,12 +24,12 @@ import (
 
 // ipmaskCmd represents the ipmask command
 var ipmaskCmd = &cobra.Command{
-	Use: "ipmask",
+	Use: "ipmask <ip-addr>",
 	Run: func(cmd *cobra.Command, args []string) {
 
 		if len(args) != 1 {
-			cmd.Help()
-			fatal("Usage: ipmask dotted-ip-addr ones bits")
+			cmd.Usage()
+			os.Exit(1)
 		}
 		dotAddr := args[0]
 

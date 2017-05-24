@@ -19,14 +19,16 @@ import (
 
 	"github.com/spf13/cobra"
 	"net"
+	"os"
 )
 
 // ipaddressCmd represents the ipaddress command
 var ipaddressCmd = &cobra.Command{
-	Use: "ipaddress",
+	Use: "ipaddress <ip-addr>",
 	Run: func(cmd *cobra.Command, args []string) {
 		if len(args) != 1 {
-			fatal("Usage: ipaddress ip-addr")
+			cmd.Usage()
+			os.Exit(1)
 		}
 		name := args[0]
 		addr := net.ParseIP(name)
