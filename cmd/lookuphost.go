@@ -16,15 +16,15 @@ package cmd
 
 import (
 	"fmt"
+	"net"
+	"os"
 
 	"github.com/spf13/cobra"
-	"os"
-	"net"
 )
 
 // lookuphostCmd represents the lookuphost command
 var lookuphostCmd = &cobra.Command{
-	Use:   "lookuphost [host]",
+	Use: "lookuphost [host]",
 	Run: func(cmd *cobra.Command, args []string) {
 		if len(args) != 1 {
 			cmd.Usage()

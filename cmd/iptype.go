@@ -16,15 +16,15 @@ package cmd
 
 import (
 	"fmt"
+	"net"
+	"os"
 
 	"github.com/spf13/cobra"
-	"os"
-	"net"
 )
 
 // iptypeCmd represents the iptype command
 var iptypeCmd = &cobra.Command{
-	Use:   "iptype  [ip-addr]",
+	Use: "iptype  [ip-addr]",
 	Run: func(cmd *cobra.Command, args []string) {
 		if len(args) != 1 {
 			cmd.Usage()

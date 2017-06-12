@@ -16,10 +16,10 @@ package cmd
 
 import (
 	"fmt"
-
-	"github.com/spf13/cobra"
 	"net"
 	"os"
+
+	"github.com/spf13/cobra"
 )
 
 // ipmaskCmd represents the ipmask command

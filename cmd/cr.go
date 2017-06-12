@@ -15,14 +15,15 @@
 package cmd
 
 import (
-	"github.com/spf13/cobra"
-	"os"
-	"time"
-	"net/http"
-	"log"
-	"os/signal"
 	"io/ioutil"
+	"log"
+	"net/http"
 	"net/url"
+	"os"
+	"os/signal"
+	"time"
+
+	"github.com/spf13/cobra"
 )
 
 type Result struct {
@@ -79,8 +80,6 @@ var crCmd = &cobra.Command{
 
 		handleSignals()
 
-
-
 	},
 }
 
@@ -109,8 +108,8 @@ func MakeFormRequest(url string, ch chan string) {
 	resp, _ := client.Get(url)
 	resp.Request.ParseForm()
 	form := resp.Request.Form
-	//body, _ := ioutil.ReadAll(resp.Body)
-	//log.Println(string(body))
+	body, _ := ioutil.ReadAll(resp.Body)
+	log.Println(string(body))
 	//log.Println(url)
 	//log.Println(form)
 
