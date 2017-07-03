@@ -1,8 +1,21 @@
 hash: 22180b9c7507794da6b8340a7be8ecd25411cb76f4ea76e99dee2bb34ef1729c
-updated: 2017-05-20T17:47:38.746321091+08:00
+updated: 2017-06-15T11:35:11.993830362+08:00
 imports:
 - name: github.com/fsnotify/fsnotify
   version: 4da3e2cfbabc9f751898f250b49f2439785783a1
+- name: github.com/graphql-go/graphql
+  version: fe52096df4714b0c66bd7921ade11c976acb51a2
+  subpackages:
+  - gqlerrors
+  - language/ast
+  - language/kinds
+  - language/lexer
+  - language/location
+  - language/parser
+  - language/printer
+  - language/source
+  - language/typeInfo
+  - language/visitor
 - name: github.com/hashicorp/hcl
   version: 392dba7d905ed5d04a5794ba89f558b27e2ba1ca
   subpackages:
@@ -38,6 +51,10 @@ imports:
   version: e57e3eeb33f795204c1ca35f56c44f83227c6e66
 - name: github.com/spf13/viper
   version: 0967fc9aceab2ce9da34061253ac10fb99bba5b2
+- name: golang.org/x/net
+  version: ddf80d0970594e2e4cccf5a98861cad3d9eaa4cd
+  subpackages:
+  - context
 - name: golang.org/x/sys
   version: a2e06a18b0d52d8cb2010e04b372a1965d8e3439
   subpackages:

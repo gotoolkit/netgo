@@ -26,18 +26,18 @@ import (
 var lookupportCmd = &cobra.Command{
 	Use: "lookupport [ip-addr]",
 	Run: func(cmd *cobra.Command, args []string) {
-		if len(args) != 1 {
+		if len(args) != 2 {
 			cmd.Usage()
 			os.Exit(1)
 		}
-		name := args[0]
-		addrs, err := net.LookupHost(name)
+
+		networkType := args[0]
+		service := args[1]
+		port, err := net.LookupPort(networkType, service)
 		if err != nil {
 			fatal(err)
 		}
-		for _, s := range addrs {
-			fmt.Println(s)
-		}
+		fmt.Println("Service port ", port)
 	},
 }
 
