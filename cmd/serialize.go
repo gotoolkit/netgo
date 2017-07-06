@@ -46,7 +46,7 @@ var serializeCmd = &cobra.Command{
 				Email{Kind: "work", Address: "j.newmarch@boxhill.edu.au"},
 			},
 		}
-		saveGob("person.gob", person)
+		saveGob("tmp/person.gob", person)
 	},
 }
 
