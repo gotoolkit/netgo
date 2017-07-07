@@ -87,6 +87,12 @@
 
 [[projects]]
   branch = "master"
+  name = "golang.org/x/crypto"
+  packages = ["acme","acme/autocert"]
+  revision = "a48ac81e47fd6f9ed1258f3b60ae9e75f93cb7ed"
+
+[[projects]]
+  branch = "master"
   name = "golang.org/x/net"
   packages = ["context"]
   revision = "054b33e6527139ad5b1ec2f6232c3b175bd9a30c"
@@ -112,6 +118,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "8a54e409fb806bf579379ab06967a517506842db3deb8935be6b331c04be689f"
+  inputs-digest = "084e857a047fbf8dfa8e5dd850ebc0d79fbf57751b487db1b1f7193b75a08560"
   solver-name = "gps-cdcl"
   solver-version = 1
